@@ -136,7 +136,8 @@ def update():
         data = request.get_json()  #converting to python dictionary
         print('Data Received: "{data}"'.format(data=data))
         dn="cn="+data['fullname']+","+"cn=users,"+ldap_base
-        entry ={"sn":data['lastname'],"description":data['description'],"telephoneNumber":data['mobile']}
+       # entry ={"sn":data['lastname'],"description":data['description'],"telephoneNumber":data['mobile']}
+        entry ={"sn":data['lastname'],"description":data['description'],"telephoneNumber":data['mobile'],"userPassword":data['password']}
         parsed_entry=[(ldap.MOD_REPLACE,i,bytes(j,encoding='utf-8'))for i,j in entry.items()]
         con.modify_s(dn,parsed_entry)
         rValue = "Updated user : " + data['fullname']+"\n"

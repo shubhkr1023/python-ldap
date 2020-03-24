@@ -15,7 +15,7 @@ def create():
         data = request.get_json()  #converting to python dictionary
         print('Data Received: "{data}"'.format(data=data))
         dn="cn="+data['fullname']+","+"cn=users,"+ldap_base
-        entry ={"cn":data['fullname'],'givenName':data['firstname'],"sn":data['lastname'],"objectClass":"person","description":data['desc'],"telephoneNumber":data['mobile'],"userPassword":data['password']}
+        entry ={"cn":data['fullname'],'givenName':data['firstname'],"sn":data['lastname'],"objectClass":"inetOrgPerson","description":data['desc'],"telephoneNumber":data['mobile'],"userPassword":data['password']}
         parsed_entry=[(i,bytes(j,encoding='utf-8'))for i,j in entry.items()]
         con.add_s(dn,parsed_entry)
         #return Response( mimetype="application/json", response=json.dumps(results), status=200  )
