@@ -16,17 +16,28 @@ def create():
     if request.method == 'POST':
      try:
 
+        
         data = request.get_json()  #converting to python dictionary
         print('Data Received: "{data}"'.format(data=data))
         dn="cn="+data['fullname']+","+"cn=users,"+ldap_base
-        if(everify(data['mail'])==0):
+        user_input=[i for(i,j) in data.items()] #key of all user input 
+
+        #verifying correct email format
+        
+        if('mail' in user_input):
+
+          if(everify(data['mail'])==0 ):
             rValue="Incorrect email format!"
             return Response(
             mimetype="application/json",
             response=rValue,
             status=400)
+
+        #verifying correct mobile number format
         
-        if(pverify(data['mobile'])==0):
+        if('mobile' in user_input):
+
+          if(pverify(data['mobile'])==0 ):
             rValue="Incorrect mobile number format!"
             return Response(
             mimetype="application/json",
@@ -34,21 +45,37 @@ def create():
             status=400)
         
 
+        #verifying mandatory input from user
+ 
+        mandatory=["fullname","lastname","description","mobile","mCode","mail","password"]
+        temp = [x for x in mandatory if x in user_input]
+        missing_attr=set(mandatory) - set(temp)
+        if(len(missing_attr)==0):
+                #adding user data to LDAP DIT
+                entry ={"cn":data['fullname'],"sn":data['lastname'],"givenName":data['firstname'],"objectClass":"inetOrgPerson","description":data['description'],"mobile":'+'+data['mCode']+data['mobile'],"mail":data['mail'],"userPassword":data['password']}
+                parsed_entry=[(i,bytes(j,encoding='utf-8'))for i,j in entry.items()]
+                con.add_s(dn,parsed_entry)
+                rValue = "Created user : " + data['fullname']+"\n"
+                return Response(
+                mimetype="application/json",
+                response=rValue,
+                status=200
+                     )
+        else:
+                rValue="Missing mandatory user attributes" + str(missing_attr)+ "\n"
+                return Response(
+                mimetype="application/json",
+                response=rValue,
+                status=400)
 
-        entry ={"cn":data['fullname'],"sn":data['lastname'],"givenName":data['firstname'],"objectClass":"inetOrgPerson","description":data['description'],"mobile":'+'+data['mCode']+data['mobile'],"mail":data['mail'],"userPassword":data['password']}
-        parsed_entry=[(i,bytes(j,encoding='utf-8'))for i,j in entry.items()]
-        con.add_s(dn,parsed_entry)
-        rValue = "Created user : " + data['fullname']+"\n"
-        return Response(
-          mimetype="application/json",
-          response=rValue,
-          status=200
-        )
+
+
+
 
 
      except ldap.LDAPError as e:
 
-        mssg = list(e.args)[0]['description']
+        mssg = list(e.args)[0]['desc']
         rValue ="Error while adding user: " + mssg+"\n"
         return Response(
           mimetype="application/json",
