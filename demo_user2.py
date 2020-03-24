@@ -9,7 +9,7 @@ app = Flask(__name__)
 
 #create user
 #sample request
-#curl -i -X POST http://10.21.74.44:5000/create --data '{"fullname":"test9.testSN9","firstname":"test9","lastname":"testSN9","description":"developer","mobile":"1234567890","mail":"test9.testSN9@ril.com","password":"12345","ou":"IRM","uid":"t9"}' -H 'Content-Type: application/json'
+#curl -i -X POST http://10.21.74.44:5000/create --data '{"fullname":"test9.testSN9","firstname":"test9","lastname":"testSN9","description":"developer","mobile":"1234567890","mCode":"91","mail":"test9.testSN9@ril.com","password":"12345","ou":"IRM","uid":"t9"}' -H 'Content-Type: application/json'
 
 @app.route('/create', methods=['POST'])
 def create():
@@ -35,7 +35,7 @@ def create():
         
 
 
-        entry ={"cn":data['fullname'],"sn":data['lastname'],"givenName":data['firstname'],"objectClass":"inetOrgPerson","description":data['description'],"mobile":data['mobile'],"mail":data['mail'],"userPassword":data['password']}
+        entry ={"cn":data['fullname'],"sn":data['lastname'],"givenName":data['firstname'],"objectClass":"inetOrgPerson","description":data['description'],"mobile":'+'+data['mCode']+data['mobile'],"mail":data['mail'],"userPassword":data['password']}
         parsed_entry=[(i,bytes(j,encoding='utf-8'))for i,j in entry.items()]
         con.add_s(dn,parsed_entry)
         rValue = "Created user : " + data['fullname']+"\n"
