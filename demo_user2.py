@@ -19,7 +19,7 @@ def create():
         
         data = request.get_json()  #converting to python dictionary
         print('Data Received: "{data}"'.format(data=data))
-        dn="cn="+data['fullname']+","+"cn=users,"+ldap_base
+        dn="cn=" + data['fullname'] + ",ou=" + data['businessUnit']+ ",cn=users," + ldap_base
         user_input=[i for(i,j) in data.items()] #key of all user input 
 
         #verifying correct email format
