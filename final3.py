@@ -57,7 +57,7 @@ def create():
 
                 #adding user data to LDAP DIT
                 dn="cn="+data['fullname']+","+"cn=users,"+ldap_base
-                entry ={"cn":data['fullname'],"sn":data['lastname'],"givenName":data['firstname'],"objectClass":"inetOrgPerson","description":data['description'],"mobile":'+'+data['mCode']+data['mobile'],"mail":data['mail'],"userPassword":data['password']}
+                entry ={"cn":data['fullname'],"sn":data['lastname'],"givenName":data['firstname'],"objectClass":"inetOrgPerson","description":data['description'],"mobile":'+'+data['mCode']+data['mobile'],"mail":data['mail'],"userPassword":data['password'],"ou":data['ou'],"uid":data['uid']}
                 parsed_entry=[(i,bytes(j,encoding='utf-8'))for i,j in entry.items()]
                 con.add_s(dn,parsed_entry)
                 rValue = "Created user : " + data['fullname']+"\n"
@@ -176,6 +176,24 @@ def update():
         print('Data Received: "{data}"'.format(data=data))
         dn="cn="+data['fullname']+","+"cn=users,"+ldap_base
         user_input=[i for(i,j) in data.items()] #key of all user input
+        modifiable_attr=['description','mobile','mCode','mail','description','mobile','mCode','mail']
+        temp=[x for x in user_input if x in modifiable_att]
+        if(len(temp)==len(user_input)):
+              pass
+        
+
+
+
+
+        else:
+            rValue="Unmodifiable attributes passed in request"
+            return Response(
+            mimetype="application/json",
+            response=rValue,
+            status=400)
+
+
+
 
         #verifying correct email format
 
@@ -221,6 +239,42 @@ def update():
           status=400
         )
 
+
+
+#password update
+#sample request
+#curl -i -X POST http://10.21.74.44:5000/updatepassword --data '{"fullname":"test1.testSN1","oldPass":"12345","newPass":"1234567"}' -H 'Content-Type: application/json'
+
+
+
+@app.route('/updatepassword', methods=['POST'])
+def updatepassword():
+    if request.method == 'POST':
+     try:
+        data = request.get_json()  #converting to python dictionary
+        print('Data Received: "{data}"'.format(data=data))
+        dn="cn="+data['fullname']+","+"cn=users,"+ldap_base
+        parsed_entry=[(ldap.MOD_REPLACE,i,bytes(j,encoding='utf-8'))for i,j in entry.items()]
+        con.modify_s(dn,parsed_entry)
+        rValue = "Updated user : " + data['fullname']+"\n"
+        return Response(
+          mimetype="application/json",
+          response=rValue,
+          status=200
+        )
+
+   
+
+     except ldap.LDAPError as e:
+
+        mssg = list(e.args)[0]['desc']
+        rValue ="Error while updating user: " + mssg
+        return Response(
+          mimetype="application/json",
+          response=rValue,
+          status=400
+        )
+   
 
 
 app.run(host='10.21.74.44',debug=True)
