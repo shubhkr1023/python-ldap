@@ -20,13 +20,12 @@ def create():
         
            
         data = request.get_json()  #converting to python dictionary
-        print('Data Received: "{data}"'.format(data=data))
         
         #exit if Business Unit doesn't exist
         if(data['businessUnit'] not in bVerticals):
             return Response(
             mimetype="application/json",
-            response="Business Unit doesn't exist",
+            response="Business Unit doesn't exist" + "\n",
             status=400)
 
         user_input=[i for(i,j) in data.items()] #key of all user input
@@ -37,7 +36,7 @@ def create():
 
           #verify mail format only if it exists in body of user request 
           if(everify(data['mail'])==0 ):
-            rValue="Incorrect email format!"
+            rValue="Incorrect email format!" + "\n"
             return Response(
             mimetype="application/json",
             response=rValue,
@@ -50,7 +49,7 @@ def create():
 
           #verify mail format only if it exists in body of user request
           if(pverify(data['mobile'])==0 ):
-            rValue="Incorrect mobile number format!"
+            rValue="Incorrect mobile number format!"+ "\n"
             return Response(
             mimetype="application/json",
             response=rValue,
@@ -98,9 +97,6 @@ def create():
 
 
 
-
-
-
 #delete user
 #sample curl
 #curl -i -X POST http://10.21.74.44:5000/delete --data '{"fullname":"test1.testSN1"}' -H 'Content-Type: application/json'
@@ -112,7 +108,6 @@ def delete():
      try:
 
         data = request.get_json()  #converting to python dictionary
-        print('Data Received: "{data}"'.format(data=data))
 
         #search user to get dn
         filter = "(&(objectClass=*)(cn="+data['fullname']+"))"
@@ -123,7 +118,7 @@ def delete():
         if len(results) == 0:
           return Response(
           mimetype="application/json",
-          response="User doesn't exists",
+          response="User doesn't exists" +"\n",
           status=400
         )
 
@@ -149,9 +144,6 @@ def delete():
         )
 
 
-
-
-
 #User search
 #sample curl
 #curl -i -X GET http://10.21.74.44:5000/search --data '{"fullname":"test1.testSN1"}' -H 'Content-Type: application/json'
@@ -160,8 +152,6 @@ def delete():
 def search2():
     if request.method =='GET':
         data = request.get_json()                   #converting to python dictionary
-        print('Data Received: "{data}"'.format(data=data))
-
         filter = "(&(objectClass=*)(cn="+data['fullname']+"))"
         #attr = None #to list all attribute in that DIT entry
         attr =['cn','sn','givenName','mail','mobile','uid']
@@ -188,22 +178,20 @@ def search2():
         if len(results) == 0:
           return Response(
           mimetype="application/json",
-          response="User doesn't exists",
+          response="User doesn't exists" +"\n",
           status=400
         )
 
         rDict = results[0][1]
-        print(rDict)
         rDictDecoded = {i:j[0].decode('utf-8') for i,j in rDict.items()}
         rDictDecoded.update({'dn':results[0][0]})
-        print(rDictDecoded)
 
        #name_matched=results[0][1]['cn'][0].decode('utf-8')
         if len(results) != 0:
            rValue=json.dumps(rDictDecoded)
            code=200
         elif len(results) == 0:
-           rValue="User Not Found!"
+           rValue="User Not Found!"+"\n"
            code=404
         resp = Response(
           mimetype="application/json",
@@ -309,7 +297,6 @@ def updatepassword():
     if request.method == 'POST':
      try:
         data = request.get_json()  #converting to python dictionary
-        print('Data Received: "{data}"'.format(data=data))
         #dn="cn="+data['fullname']+","+"cn=users,"+ldap_base
 
         #search user to get dn
@@ -319,12 +306,12 @@ def updatepassword():
         if len(results) == 0:
           return Response(
           mimetype="application/json",
-          response="User doesn't exists",
+          response="User doesn't exists" +"\n",
           status=400
         )
 
         dn=results[0][0]
-        con.simple_bind_s("cn="+data['fullname'], data['oldPass'])
+        con.simple_bind_s(dn, data['oldPass'])
         entry={"userPassword":data['newPass']}
         parsed_entry=[(ldap.MOD_REPLACE,i,bytes(j,encoding='utf-8'))for i,j in entry.items()]
         con.modify_s(dn,parsed_entry)
@@ -340,7 +327,7 @@ def updatepassword():
      except ldap.LDAPError as e:
 
         mssg = list(e.args)[0]['desc']
-        rValue ="Error while updating user: " + mssg
+        rValue ="Error while updating user: " + mssg+"\n"
         return Response(
           mimetype="application/json",
           response=rValue,
