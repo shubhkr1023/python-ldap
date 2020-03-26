@@ -25,7 +25,7 @@ def create():
         if(data['businessUnit'] not in bVerticals):
             return Response(
             mimetype="application/json",
-            response="Business Unit doesn't exist" + "\n",
+            response=json.dumps("Business Unit doesn't exist ") ,
             status=400)
 
         user_input=[i for(i,j) in data.items()] #key of all user input
@@ -36,10 +36,10 @@ def create():
 
           #verify mail format only if it exists in body of user request 
           if(everify(data['mail'])==0 ):
-            rValue="Incorrect email format!" + "\n"
+            rValue="Incorrect email format!"
             return Response(
             mimetype="application/json",
-            response=rValue,
+            response=json.dumps(rValue),
             status=400)
 
 
@@ -49,10 +49,10 @@ def create():
 
           #verify mail format only if it exists in body of user request
           if(pverify(data['mobile'])==0 ):
-            rValue="Incorrect mobile number format!"+ "\n"
+            rValue="Incorrect mobile number format!"
             return Response(
             mimetype="application/json",
-            response=rValue,
+            response=json.dumps(rValue),
             status=400)
 
 
@@ -69,18 +69,18 @@ def create():
                 entry ={"cn":data['fullname'],"sn":data['lastname'],"givenName":data['firstname'],"objectClass":"inetOrgPerson","description":data['description'],"mobile":'+'+data['mCode']+data['mobile'],"mail":data['mail'],"userPassword":data['password'],"uid":data['uid']}
                 parsed_entry=[(i,bytes(j,encoding='utf-8'))for i,j in entry.items()]
                 con.add_s(dn,parsed_entry)
-                rValue = "Created user : " + data['fullname']+"\n"
+                rValue = "Created user : " + data['fullname']
                 return Response(
                 mimetype="application/json",
-                response=rValue,
+                response=json.dumps(rValue),
                 status=200
                      )
         else:
                 #missing mandatory fields! Exit with 400
-                rValue="Missing mandatory user attributes " + str(missing_attr)+ "\n"
+                rValue="Missing mandatory user attributes " + str(missing_attr)
                 return Response(
                 mimetype="application/json",
-                response=rValue,
+                response=json.dumps(rValue),
                 status=400)
 
 
@@ -88,10 +88,10 @@ def create():
      except ldap.LDAPError as e:
 
         mssg = list(e.args)[0]['desc']
-        rValue ="Error while adding user: " + mssg+"\n"
+        rValue ="Error while adding user: " + mssg
         return Response(
           mimetype="application/json",
-          response=rValue,
+          response=json.dumps(rValue),
           status=400
         )
 
@@ -118,17 +118,17 @@ def delete():
         if len(results) == 0:
           return Response(
           mimetype="application/json",
-          response="User doesn't exists" +"\n",
+          response=json.dumps("User doesn't exists") ,
           status=400
         )
 
         dn=results[0][0]
         
         con.delete_s(dn)
-        rValue= "Deleted user : " + data['fullname']+"\n"
+        rValue= "Deleted user : " + data['fullname']
         return Response(
           mimetype="application/json",
-          response=rValue,
+          response=json.dumps(rValue),
           status=200
         )
 
@@ -136,10 +136,10 @@ def delete():
      except ldap.LDAPError as e:
 
         mssg = list(e.args)[0]['desc']
-        rValue= "Error while deleting user " + "'"+ data['fullname'] + "': " + mssg+"\n"
+        rValue= "Error while deleting user " + "'"+ data['fullname'] + "': " + mssg
         return Response(
           mimetype="application/json",
-          response=rValue,
+          response=json.dumps(rValue),
           status=400
         )
 
@@ -148,9 +148,9 @@ def delete():
 #sample curl
 #curl -i -X GET http://10.21.74.44:5000/search --data '{"fullname":"test1.testSN1"}' -H 'Content-Type: application/json'
 
-@app.route('/search', methods=['GET'])
+@app.route('/search', methods=['GET','POST'])
 def search2():
-    if request.method =='GET':
+    if request.method =='GET'or 'POST':
         data = request.get_json()                   #converting to python dictionary
         filter = "(&(objectClass=*)(cn="+data['fullname']+"))"
         #attr = None #to list all attribute in that DIT entry
@@ -178,7 +178,7 @@ def search2():
         if len(results) == 0:
           return Response(
           mimetype="application/json",
-          response="User doesn't exists" +"\n",
+          response=json.dumps("User doesn't exists") ,
           status=400
         )
 
@@ -188,14 +188,14 @@ def search2():
 
        #name_matched=results[0][1]['cn'][0].decode('utf-8')
         if len(results) != 0:
-           rValue=json.dumps(rDictDecoded)
+           rValue=rDictDecoded
            code=200
         elif len(results) == 0:
-           rValue="User Not Found!"+"\n"
+           rValue="User Not Found!"
            code=404
         resp = Response(
           mimetype="application/json",
-          response=rValue,
+          response=json.dumps(rValue),
           status=code
         )
         return resp
@@ -222,7 +222,7 @@ def update():
         if len(results) == 0:
           return Response(
           mimetype="application/json",
-          response="User doesn't exists" +"\n",
+          response=json.dumps("User doesn't exists") ,
           status=400
         )
 
@@ -236,7 +236,7 @@ def update():
             rValue="Incorrect email format!"
             return Response(
             mimetype="application/json",
-            response=rValue,
+            response=json.dumps(rValue),
             status=400)
 
 
@@ -247,7 +247,7 @@ def update():
             rValue="Incorrect mobile number format!"
             return Response(
             mimetype="application/json",
-            response=rValue,
+            response=json.dumps(rValue),
             status=400)
 
         modifiable_attr=['description','mobile','mCode','mail']
@@ -266,10 +266,10 @@ def update():
   
             parsed_entry=[(ldap.MOD_REPLACE,i,bytes(j,encoding='utf-8'))for i,j in entry.items()]
             con.modify_s(dn,parsed_entry)
-            rValue = "Updated user : " + data['fullname']+"\n"
+            rValue = "Updated user : " + data['fullname']
             return Response(
              mimetype="application/json",
-             response=rValue,
+             response=json.dumps(rValue),
              status=200
                )
 
@@ -279,7 +279,7 @@ def update():
             rValue="Unmodifiable attributes passed in request"
             return Response(
             mimetype="application/json",
-            response=rValue,
+            response=json.dumps(rValue),
             status=400)
 
 
@@ -291,7 +291,7 @@ def update():
         rValue ="Error while updating user: " + mssg
         return Response(
           mimetype="application/json",
-          response=rValue,
+          response=json.dumps(rValue),
           status=400
         )
 
@@ -317,7 +317,7 @@ def updatepassword():
         if len(results) == 0:
           return Response(
           mimetype="application/json",
-          response="User doesn't exists" +"\n",
+          response=json.dumps("User doesn't exists") ,
           status=400
         )
 
@@ -326,10 +326,10 @@ def updatepassword():
         entry={"userPassword":data['newPass']}
         parsed_entry=[(ldap.MOD_REPLACE,i,bytes(j,encoding='utf-8'))for i,j in entry.items()]
         con.modify_s(dn,parsed_entry)
-        rValue = "Updated password for user : " + data['fullname']+"\n"
+        rValue = "Updated password for user : " + data['fullname']
         return Response(
           mimetype="application/json",
-          response=rValue,
+          response=json.dumps(rValue),
           status=200
         )
 
@@ -338,10 +338,10 @@ def updatepassword():
      except ldap.LDAPError as e:
 
         mssg = list(e.args)[0]['desc']
-        rValue ="Error while updating user: " + mssg+"\n"
+        rValue ="Error while updating user: " + mssg
         return Response(
           mimetype="application/json",
-          response=rValue,
+          response=json.dumps(rValue),
           status=400
         )
    
