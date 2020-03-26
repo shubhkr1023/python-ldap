@@ -203,30 +203,75 @@ def search2():
 
 
 
-
-
-
-
 #user modify
 #sample request
-#curl -i -X POST http://10.21.74.44:5000/update --data '{"fullname":"test1.testSN1","lastname":"testSN1","description":"developer","mobile":"1234567890"}' -H 'Content-Type: application/json'
+#curl -i -X POST http://10.21.74.44:5000/updateuser --data '{"fullname":"test1.testSN1","description":"developerMOD","mobile":"1234577777"}' -H 'Content-Type: application/json'
 
 
 
-@app.route('/update', methods=['POST'])
+@app.route('/updateuser', methods=['POST'])
 def update():
     if request.method == 'POST':
      try:
         data = request.get_json()  #converting to python dictionary
-        print('Data Received: "{data}"'.format(data=data))
-        dn="cn="+data['fullname']+","+"cn=users,"+ldap_base
-        user_input=[i for(i,j) in data.items()] #key of all user input
-        modifiable_attr=['description','mobile','mCode','mail','description','mobile','mCode','mail']
-        temp=[x for x in user_input if x in modifiable_att]
-        if(len(temp)==len(user_input)):
-              pass
         
+        #search user to get dn
+        filter = "(&(objectClass=*)(cn="+data['fullname']+"))"
+        attr=None
+        results = con.search_s(ldap_base, ldap.SCOPE_SUBTREE,filter,attr)
+        if len(results) == 0:
+          return Response(
+          mimetype="application/json",
+          response="User doesn't exists" +"\n",
+          status=400
+        )
 
+        dn=results[0][0]
+        user_input=[i for(i,j) in data.items()] #key of all user input
+        
+        #verifying correct email format
+        if('mail' in user_input):
+
+          if(everify(data['mail'])==0 ):
+            rValue="Incorrect email format!"
+            return Response(
+            mimetype="application/json",
+            response=rValue,
+            status=400)
+
+
+        #verifying correct mobile number format
+        if('mobile' in user_input):
+
+          if(pverify(data['mobile'])==0 ):
+            rValue="Incorrect mobile number format!"
+            return Response(
+            mimetype="application/json",
+            response=rValue,
+            status=400)
+
+        modifiable_attr=['description','mobile','mCode','mail']
+        temp=[x for x in user_input if x in modifiable_attr]
+        if(len(temp)==len(user_input) -1 ):  #minus 1 for fullname
+            
+            entry={}					 
+            if 'description' in user_input: 
+               entry['description']=data['description'] 
+            if 'mobile' in user_input:
+               entry['mobile']=data['mobile']
+            if 'mCode' in user_input:
+               entry['mail']=data['mail']
+            if 'mail' in user_input:
+               entry['mail']=data['mail']
+  
+            parsed_entry=[(ldap.MOD_REPLACE,i,bytes(j,encoding='utf-8'))for i,j in entry.items()]
+            con.modify_s(dn,parsed_entry)
+            rValue = "Updated user : " + data['fullname']+"\n"
+            return Response(
+             mimetype="application/json",
+             response=rValue,
+             status=200
+               )
 
 
 
@@ -238,40 +283,6 @@ def update():
             status=400)
 
 
-
-
-        #verifying correct email format
-
-        if('mail' in user_input):
-
-          if(everify(data['mail'])==0 ):
-            rValue="Incorrect email format!"
-            return Response(
-            mimetype="application/json",
-            response=rValue,
-            status=400)
-
-        #verifying correct mobile number format
-
-        if('mobile' in user_input):
-
-          if(pverify(data['mobile'])==0 ):
-            rValue="Incorrect mobile number format!"
-            return Response(
-            mimetype="application/json",
-            response=rValue,
-            status=400)
-
-       # entry ={"sn":data['lastname'],"description":data['description'],"telephoneNumber":data['mobile']}
-        entry ={"sn":data['lastname'],"description":data['description'],"mobile":data['mobile'],"userPassword":data['password']}
-        parsed_entry=[(ldap.MOD_REPLACE,i,bytes(j,encoding='utf-8'))for i,j in entry.items()]
-        con.modify_s(dn,parsed_entry)
-        rValue = "Updated user : " + data['fullname']+"\n"
-        return Response(
-          mimetype="application/json",
-          response=rValue,
-          status=200
-        )
 
 
      except ldap.LDAPError as e:
