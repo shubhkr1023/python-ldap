@@ -146,13 +146,13 @@ def delete():
 
 #User search
 #sample curl
-#curl -i -X GET http://10.21.74.44:5000/search?fullname=test8.testSN8 -H 'Content-Type: application/json'
+#curl -i -X GET http://10.21.74.44:5000/search --data '{"fullname":"test1.testSN1"}' -H 'Content-Type: application/json'
 
-@app.route('/search', methods=['GET'])
-def search():
-    if request.method =='GET':
-        fullname =request.args.get('fullname',"")
-        filter = "(&(objectClass=*)(cn="+fullname+"))"
+@app.route('/search', methods=['GET','POST'])
+def search2():
+    if request.method =='GET'or 'POST':
+        data = request.get_json()                   #converting to python dictionary
+        filter = "(&(objectClass=*)(cn="+data['fullname']+"))"
         #attr = None #to list all attribute in that DIT entry
         attr =['cn','sn','givenName','mail','mobile','uid']
 
