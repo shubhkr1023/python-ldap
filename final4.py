@@ -22,7 +22,11 @@ def create():
         data = request.get_json()  #converting to python dictionary
         
         #exit if Business Unit doesn't exist
-        if(data['businessUnit'] not in bVerticals):
+        buFilter = "(&(objectClass=organizationalUnit)(ou=" + data['businessUnit']+ "))"
+        buAttr = None
+        results = con.search_s(ldap_base, ldap.SCOPE_SUBTREE,buFilter,buAttr)
+
+        if(len(results)==0):  #business unit doesn't exist
             return Response(
             mimetype="application/json",
             response=json.dumps("Business Unit doesn't exist ") ,

@@ -17,7 +17,6 @@ app = Flask(__name__)
 def search2():
     if request.method =='GET':
         fullname=request.args.get('fullname')
-        print(fullname)
         #con.simple_bind_s("cn=orcladmin", "Oracle#123")
         con.simple_bind_s(request.authorization["username"],request.authorization["password"])
         filter = "(&(objectClass=*)(cn="+fullname+"))"            
