@@ -3,7 +3,7 @@ import ldap,jsonify
 from emailverify import everify
 from phoneverify import pverify
 con =ldap.initialize('ldap://10.21.74.44:3060')
-con.simple_bind_s("cn=orcladmin", "Oracle#123")
+#con.simple_bind_s("cn=orcladmin", "Oracle#123")
 ldap_base = "dc=in,dc=ril,dc=com"
 app = Flask(__name__)
 bVerticals=['irm','retail','grca']
@@ -18,7 +18,7 @@ def create():
     if request.method == 'POST':
      try:
         
-           
+        con.simple_bind_s(request.authorization["username"],request.authorization["password"])  
         data = request.get_json()  #converting to python dictionary
         
         #exit if Business Unit doesn't exist
@@ -106,7 +106,8 @@ def delete():
     if request.method == 'POST':
 
      try:
-
+       
+        con.simple_bind_s(request.authorization["username"],request.authorization["password"])
         data = request.get_json()  #converting to python dictionary
 
         #search user to get dn
@@ -151,6 +152,8 @@ def delete():
 @app.route('/search', methods=['GET'])
 def search():
     if request.method =='GET':
+     try:
+        con.simple_bind_s(request.authorization["username"],request.authorization["password"])
         fullname =request.args.get('fullname',"")
         filter = "(&(objectClass=*)(cn="+fullname+"))"
         #attr = None #to list all attribute in that DIT entry
@@ -199,6 +202,16 @@ def search():
           status=code
         )
         return resp
+     
+     except ldap.LDAPError as e:
+
+        mssg = list(e.args)[0]['desc']
+        rValue ="Error while searching user: " + mssg
+        return Response(
+          mimetype="application/json",
+          response=json.dumps(rValue),
+          status=400
+        ) 
 
 
 
@@ -213,6 +226,8 @@ def search():
 def update():
     if request.method == 'POST':
      try:
+        
+        con.simple_bind_s(request.authorization["username"],request.authorization["password"])
         data = request.get_json()  #converting to python dictionary
         
         #search user to get dn
@@ -307,6 +322,7 @@ def update():
 def updatepassword():
     if request.method == 'POST':
      try:
+        con.simple_bind_s(request.authorization["username"],request.authorization["password"])
         data = request.get_json()  #converting to python dictionary
         #dn="cn="+data['fullname']+","+"cn=users,"+ldap_base
 

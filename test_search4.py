@@ -1,20 +1,25 @@
 from flask import Flask,request,Response,json
+from flask_httpauth import HTTPBasicAuth
 import ldap
 
 con =ldap.initialize('ldap://10.21.74.44:3060')
-con.simple_bind_s("cn=orcladmin", "Oracle#123")
+#con.simple_bind_s("cn=orcladmin", "Oracle#123")
 ldap_base = "dc=in,dc=ril,dc=com"
 app = Flask(__name__)
 
 
+
+
 #curl -i -X GET http://10.21.74.44:5000/search?fullname=test8.testSN8 -H 'Content-Type: application/json'
 
-
 @app.route('/search', methods=['GET'])
+
 def search2():
     if request.method =='GET':
         fullname=request.args.get('fullname')
         print(fullname)
+        #con.simple_bind_s("cn=orcladmin", "Oracle#123")
+        con.simple_bind_s(request.authorization["username"],request.authorization["password"])
         filter = "(&(objectClass=*)(cn="+fullname+"))"            
         #filter ="(&(objectClass=person)(cn=?))"
         #attr =['cn']
