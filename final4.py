@@ -3,10 +3,8 @@ import ldap,jsonify
 from emailverify import everify
 from phoneverify import pverify
 con =ldap.initialize('ldap://10.21.74.44:3060')
-#con.simple_bind_s("cn=orcladmin", "Oracle#123")
 ldap_base = "dc=in,dc=ril,dc=com"
 app = Flask(__name__)
-bVerticals=['irm','retail','grca']
 
 
 #create user
@@ -77,7 +75,7 @@ def create():
                 return Response(
                 mimetype="application/json",
                 response=json.dumps(rValue),
-                status=200
+                status=201
                      )
         else:
                 #missing mandatory fields! Exit with 400
@@ -134,7 +132,7 @@ def delete():
         return Response(
           mimetype="application/json",
           response=json.dumps(rValue),
-          status=200
+          status=204
         )
 
 
@@ -186,16 +184,21 @@ def search():
           return Response(
           mimetype="application/json",
           response=json.dumps("User doesn't exists") ,
-          status=400
+          status=404
         )
 
         rDict = results[0][1]
         rDictDecoded = {i:j[0].decode('utf-8') for i,j in rDict.items()}
         rDictDecoded.update({'dn':results[0][0]})
+        responseDict = rDictDecoded
+        responseDict['fullname']= rDictDecoded.pop('cn')
+        responseDict['firstname']= rDictDecoded.pop('givenname')
+        responseDict['lastname']= rDictDecoded.pop('sn')
+
 
        #name_matched=results[0][1]['cn'][0].decode('utf-8')
         if len(results) != 0:
-           rValue=rDictDecoded
+           rValue=responseDict
            code=200
         elif len(results) == 0:
            rValue="User Not Found!"
@@ -338,7 +341,7 @@ def updatepassword():
           return Response(
           mimetype="application/json",
           response=json.dumps("User doesn't exists") ,
-          status=400
+          status=404
         )
 
         dn=results[0][0]
