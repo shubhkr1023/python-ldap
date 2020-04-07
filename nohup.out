@@ -45,3 +45,411 @@ TypeError: The view function did not return a valid response. The function eithe
  * Debugger PIN: 325-183-733
 10.25.129.239 - - [02/Apr/2020 12:17:12] "GET /search?fullname=test1.testSN1 HTTP/1.1" 200 -
 10.25.129.239 - - [02/Apr/2020 12:18:39] "GET /search?fullname=test1.testSN1 HTTP/1.1" 200 -
+10.25.129.239 - - [02/Apr/2020 12:21:24] "GET /search?fullname=test1.testSN1 HTTP/1.1" 200 -
+10.25.131.45 - - [02/Apr/2020 20:59:13] "GET /create HTTP/1.1" 405 -
+10.25.131.135 - - [03/Apr/2020 10:21:49] "GET /search?fullname=test1.testSN1 HTTP/1.1" 200 -
+10.25.134.47 - - [03/Apr/2020 11:09:57] "GET /create HTTP/1.1" 405 -
+10.25.134.47 - - [03/Apr/2020 11:09:57] "GET /favicon.ico HTTP/1.1" 404 -
+10.21.74.41 - - [03/Apr/2020 12:34:36] "HEAD /search HTTP/1.1" 500 -
+Traceback (most recent call last):
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 2463, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 2449, in wsgi_app
+    response = self.handle_exception(e)
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 1866, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 2446, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 1952, in full_dispatch_request
+    return self.finalize_request(rv)
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 1967, in finalize_request
+    response = self.make_response(rv)
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 2097, in make_response
+    "The view function did not return a valid response. The"
+TypeError: The view function did not return a valid response. The function either returned None or ended without a return statement.
+10.21.74.41 - - [03/Apr/2020 12:35:12] "HEAD / HTTP/1.1" 404 -
+10.21.74.41 - - [03/Apr/2020 12:35:18] "HEAD / HTTP/1.1" 404 -
+10.21.74.41 - - [03/Apr/2020 12:35:24] "HEAD / HTTP/1.1" 404 -
+10.25.131.135 - - [03/Apr/2020 12:35:30] "GET / HTTP/1.1" 404 -
+10.25.131.135 - - [03/Apr/2020 12:35:32] "GET /favicon.ico HTTP/1.1" 404 -
+10.21.74.41 - - [03/Apr/2020 12:35:50] "HEAD /search HTTP/1.1" 500 -
+Traceback (most recent call last):
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 2463, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 2449, in wsgi_app
+    response = self.handle_exception(e)
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 1866, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 2446, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 1952, in full_dispatch_request
+    return self.finalize_request(rv)
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 1967, in finalize_request
+    response = self.make_response(rv)
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 2097, in make_response
+    "The view function did not return a valid response. The"
+TypeError: The view function did not return a valid response. The function either returned None or ended without a return statement.
+10.21.74.41 - - [03/Apr/2020 12:38:54] "GET /search/search?fullname=h HTTP/1.1" 404 -
+10.21.74.41 - - [03/Apr/2020 12:39:22] "GET /search/search?fullname=test1.testSN1 HTTP/1.1" 404 -
+10.21.74.41 - - [03/Apr/2020 12:40:43] "HEAD /search HTTP/1.1" 500 -
+10.21.74.41 - - [03/Apr/2020 12:41:15] "GET /search/search?fullname=test1.testSN1 HTTP/1.1" 404 -
+10.21.74.41 - - [03/Apr/2020 12:46:18] "HEAD /search HTTP/1.1" 500 -
+Traceback (most recent call last):
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 2463, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 2449, in wsgi_app
+    response = self.handle_exception(e)
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 1866, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 2446, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 1952, in full_dispatch_request
+    return self.finalize_request(rv)
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 1967, in finalize_request
+    response = self.make_response(rv)
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 2097, in make_response
+    "The view function did not return a valid response. The"
+TypeError: The view function did not return a valid response. The function either returned None or ended without a return statement.
+10.21.74.41 - - [03/Apr/2020 12:46:21] "HEAD /search HTTP/1.1" 500 -
+Traceback (most recent call last):
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 2463, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 2449, in wsgi_app
+    response = self.handle_exception(e)
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 1866, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 2446, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 1952, in full_dispatch_request
+    return self.finalize_request(rv)
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 1967, in finalize_request
+    response = self.make_response(rv)
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 2097, in make_response
+    "The view function did not return a valid response. The"
+TypeError: The view function did not return a valid response. The function either returned None or ended without a return statement.
+10.21.74.41 - - [03/Apr/2020 12:47:59] "GET /search/search?fullname=h HTTP/1.1" 404 -
+10.25.131.135 - - [03/Apr/2020 12:49:26] "GET /search?fullname=test1.testSN1 HTTP/1.1" 200 -
+10.21.74.41 - - [03/Apr/2020 12:50:39] "HEAD /search?fullname HTTP/1.1" 500 -
+Traceback (most recent call last):
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 2463, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 2449, in wsgi_app
+    response = self.handle_exception(e)
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 1866, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 2446, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 1952, in full_dispatch_request
+    return self.finalize_request(rv)
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 1967, in finalize_request
+    response = self.make_response(rv)
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 2097, in make_response
+    "The view function did not return a valid response. The"
+TypeError: The view function did not return a valid response. The function either returned None or ended without a return statement.
+10.21.74.41 - - [03/Apr/2020 12:50:53] "HEAD /search?q HTTP/1.1" 500 -
+Traceback (most recent call last):
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 2463, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 2449, in wsgi_app
+    response = self.handle_exception(e)
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 1866, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 2446, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 1952, in full_dispatch_request
+    return self.finalize_request(rv)
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 1967, in finalize_request
+    response = self.make_response(rv)
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 2097, in make_response
+    "The view function did not return a valid response. The"
+TypeError: The view function did not return a valid response. The function either returned None or ended without a return statement.
+10.21.74.41 - - [03/Apr/2020 12:50:58] "HEAD /search?q HTTP/1.1" 500 -
+Traceback (most recent call last):
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 2463, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 2449, in wsgi_app
+    response = self.handle_exception(e)
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 1866, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 2446, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 1952, in full_dispatch_request
+    return self.finalize_request(rv)
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 1967, in finalize_request
+    response = self.make_response(rv)
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 2097, in make_response
+    "The view function did not return a valid response. The"
+TypeError: The view function did not return a valid response. The function either returned None or ended without a return statement.
+10.21.74.41 - - [03/Apr/2020 12:51:23] "GET /search?q/search?fullname=h HTTP/1.1" 500 -
+Traceback (most recent call last):
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 2463, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 2449, in wsgi_app
+    response = self.handle_exception(e)
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 1866, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 2446, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 1951, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 1820, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 1949, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 1935, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/root/flaskapi/dev/OID/final4.py", line 158, in search
+    con.simple_bind_s(request.authorization["username"],request.authorization["password"])
+TypeError: 'NoneType' object is not subscriptable
+10.21.74.41 - - [03/Apr/2020 12:53:25] "GET /search?q/search?fullname=test1.testSN1 HTTP/1.1" 500 -
+Traceback (most recent call last):
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 2463, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 2449, in wsgi_app
+    response = self.handle_exception(e)
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 1866, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 2446, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 1951, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 1820, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 1949, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 1935, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/root/flaskapi/dev/OID/final4.py", line 158, in search
+    con.simple_bind_s(request.authorization["username"],request.authorization["password"])
+TypeError: 'NoneType' object is not subscriptable
+10.21.74.41 - - [03/Apr/2020 12:54:43] "GET /search?fullname/search?fullname=test1.testSN1 HTTP/1.1" 500 -
+ * Serving Flask app "final4" (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: on
+ * Running on http://10.21.74.44:5000/ (Press CTRL+C to quit)
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 325-183-733
+10.25.132.239 - - [06/Apr/2020 10:34:19] "POST /search HTTP/1.1" 405 -
+10.25.132.239 - - [06/Apr/2020 10:34:25] "GET /search HTTP/1.1" 500 -
+Traceback (most recent call last):
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 2463, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 2449, in wsgi_app
+    response = self.handle_exception(e)
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 1866, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 2446, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 1951, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 1820, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 1949, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 1935, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/root/flaskapi/dev/OID/final4.py", line 158, in search
+    con.simple_bind_s(request.authorization["username"],request.authorization["password"])
+TypeError: 'NoneType' object is not subscriptable
+10.25.132.239 - - [06/Apr/2020 10:34:37] "GET /search?fullname=test1.testSN1 HTTP/1.1" 200 -
+10.21.74.41 - - [06/Apr/2020 12:40:01] "HEAD /search HTTP/1.1" 500 -
+Traceback (most recent call last):
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 2463, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 2449, in wsgi_app
+    response = self.handle_exception(e)
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 1866, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 2446, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 1952, in full_dispatch_request
+    return self.finalize_request(rv)
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 1967, in finalize_request
+    response = self.make_response(rv)
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 2097, in make_response
+    "The view function did not return a valid response. The"
+TypeError: The view function did not return a valid response. The function either returned None or ended without a return statement.
+10.21.74.41 - - [06/Apr/2020 12:41:20] "GET /search/searchd HTTP/1.1" 404 -
+10.21.74.41 - - [06/Apr/2020 12:49:15] "HEAD /search HTTP/1.1" 500 -
+Traceback (most recent call last):
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 2463, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 2449, in wsgi_app
+    response = self.handle_exception(e)
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 1866, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 2446, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 1952, in full_dispatch_request
+    return self.finalize_request(rv)
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 1967, in finalize_request
+    response = self.make_response(rv)
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 2097, in make_response
+    "The view function did not return a valid response. The"
+TypeError: The view function did not return a valid response. The function either returned None or ended without a return statement.
+10.21.74.41 - - [06/Apr/2020 12:50:01] "GET /search/ HTTP/1.1" 404 -
+ * Serving Flask app "final4" (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: on
+ * Running on http://10.21.74.44:5000/ (Press CTRL+C to quit)
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 325-183-733
+10.21.74.41 - - [07/Apr/2020 10:27:31] "HEAD / HTTP/1.1" 404 -
+10.21.74.41 - - [07/Apr/2020 10:32:40] "GET /search?fullname=t HTTP/1.1" 400 -
+10.21.74.41 - - [07/Apr/2020 10:33:03] "GET /search?fullname=test1.testSN1 HTTP/1.1" 400 -
+10.21.74.41 - - [07/Apr/2020 10:34:40] "GET /search?fullname=test1.testSN1 HTTP/1.1" 200 -
+10.21.74.41 - - [07/Apr/2020 10:39:49] "POST /delete HTTP/1.1" 500 -
+Traceback (most recent call last):
+  File "/root/flaskapi/dev/OID/final4.py", line 112, in delete
+    con.simple_bind_s(request.authorization["username"],request.authorization["password"])
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/ldap/ldapobject.py", line 446, in simple_bind_s
+    resp_type, resp_data, resp_msgid, resp_ctrls = self.result3(msgid,all=1,timeout=self.timeout)
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/ldap/ldapobject.py", line 751, in result3
+    resp_ctrl_classes=resp_ctrl_classes
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/ldap/ldapobject.py", line 758, in result4
+    ldap_result = self._ldap_call(self._l.result4,msgid,all,timeout,add_ctrls,add_intermediates,add_extop)
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/ldap/ldapobject.py", line 331, in _ldap_call
+    reraise(exc_type, exc_value, exc_traceback)
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/ldap/compat.py", line 44, in reraise
+    raise exc_value
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/ldap/ldapobject.py", line 315, in _ldap_call
+    result = func(*args,**kwargs)
+ldap.INVALID_CREDENTIALS: {'desc': 'Invalid credentials'}
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 2463, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 2449, in wsgi_app
+    response = self.handle_exception(e)
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 1866, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 2446, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 1951, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 1820, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 1949, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 1935, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/root/flaskapi/dev/OID/final4.py", line 142, in delete
+    rValue= "Error while deleting user " + "'"+ data['fullname'] + "': " + mssg
+UnboundLocalError: local variable 'data' referenced before assignment
+10.21.74.41 - - [07/Apr/2020 10:50:51] "GET /search?fullname=test.testSN1 HTTP/1.1" 400 -
+10.21.74.41 - - [07/Apr/2020 10:51:52] "GET /search?fullname=test.testSN1 HTTP/1.1" 404 -
+10.21.74.41 - - [07/Apr/2020 10:53:14] "POST /delete HTTP/1.1" 204 -
+10.21.74.41 - - [07/Apr/2020 10:54:17] "POST /delete HTTP/1.1" 400 -
+10.21.74.41 - - [07/Apr/2020 10:56:18] "GET /search?fullname=test1.testSN1 HTTP/1.1" 404 -
+10.21.74.41 - - [07/Apr/2020 10:56:51] "POST /delete HTTP/1.1" 400 -
+10.21.74.41 - - [07/Apr/2020 10:59:14] "GET /search?fullname=11 HTTP/1.1" 400 -
+10.21.74.41 - - [07/Apr/2020 11:00:26] "GET /search?fullname=d HTTP/1.1" 404 -
+10.21.74.41 - - [07/Apr/2020 11:00:50] "POST /delete HTTP/1.1" 400 -
+10.21.74.41 - - [07/Apr/2020 11:01:37] "POST /create HTTP/1.1" 201 -
+10.21.74.41 - - [07/Apr/2020 11:03:09] "POST /updateuser HTTP/1.1" 200 -
+10.21.74.41 - - [07/Apr/2020 11:04:10] "POST /updatepassword HTTP/1.1" 200 -
+10.21.74.41 - - [07/Apr/2020 12:05:57] "GET /search?fullname=res HTTP/1.1" 404 -
+10.21.74.41 - - [07/Apr/2020 12:06:10] "GET /search?fullname=test1.testSN1 HTTP/1.1" 200 -
+10.21.74.41 - - [07/Apr/2020 12:06:53] "POST /delete HTTP/1.1" 204 -
+10.21.74.41 - - [07/Apr/2020 12:07:26] "POST /updatepassword HTTP/1.1" 404 -
+10.21.74.41 - - [07/Apr/2020 12:07:37] "POST /updateuser HTTP/1.1" 400 -
+10.25.128.171 - - [07/Apr/2020 12:39:58] "GET /hello HTTP/1.1" 404 -
+10.25.128.171 - - [07/Apr/2020 12:40:09] "GET / HTTP/1.1" 404 -
+10.25.128.171 - - [07/Apr/2020 12:40:15] "GET /search HTTP/1.1" 500 -
+Traceback (most recent call last):
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 2463, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 2449, in wsgi_app
+    response = self.handle_exception(e)
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 1866, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 2446, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 1951, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 1820, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 1949, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 1935, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/root/flaskapi/dev/OID/final4.py", line 158, in search
+    con.simple_bind_s(request.authorization["username"],request.authorization["password"])
+TypeError: 'NoneType' object is not subscriptable
+10.25.128.171 - - [07/Apr/2020 12:40:50] "GET /search?fullname=test HTTP/1.1" 500 -
+Traceback (most recent call last):
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 2463, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 2449, in wsgi_app
+    response = self.handle_exception(e)
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 1866, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 2446, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 1951, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 1820, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 1949, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/root/.venvs/testflask/lib/python3.6/site-packages/flask/app.py", line 1935, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/root/flaskapi/dev/OID/final4.py", line 158, in search
+    con.simple_bind_s(request.authorization["username"],request.authorization["password"])
+TypeError: 'NoneType' object is not subscriptable
+10.21.74.41 - - [07/Apr/2020 12:53:43] "GET /search?fullname=test1.testSN1 HTTP/1.1" 404 -
+10.21.74.41 - - [07/Apr/2020 12:54:15] "POST /create HTTP/1.1" 201 -
+10.21.74.41 - - [07/Apr/2020 12:54:28] "GET /search?fullname=test1.testSN1 HTTP/1.1" 200 -
+10.21.74.41 - - [07/Apr/2020 12:55:10] "POST /delete HTTP/1.1" 204 -
+10.21.74.41 - - [07/Apr/2020 12:55:20] "GET /search?fullname=test1.testSN1 HTTP/1.1" 404 -
+10.21.74.41 - - [07/Apr/2020 12:55:33] "POST /updateuser HTTP/1.1" 400 -
