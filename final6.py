@@ -60,7 +60,7 @@ def create():
 
         #verifying mandatory inputs from user
 
-        mandatory=["fullname","lastname","description","mobile","mCode","mail","password","businessUnit"]
+        mandatory=["fullname","lastname","mobile","mCode","mail","password","businessUnit"]
         temp = [x for x in mandatory if x in user_input]
         missing_attr=set(mandatory) - set(temp)
         if(len(missing_attr)==0): #i.e all mandatory fields are present in user input request body
@@ -68,7 +68,12 @@ def create():
                 #adding user data to LDAP DIT
 
                 dn="cn=" + data['fullname'] + ",ou=" + data['businessUnit']+ ",cn=users," + ldap_base
-                entry ={"cn":data['fullname'],"sn":data['lastname'],"givenName":data['firstname'],"objectClass":"inetOrgPerson","description":data['description'],"mobile":'+'+data['mCode']+data['mobile'],"mail":data['mail'],"userPassword":data['password'],"uid":data['uid']}
+                #entry ={"cn":data['fullname'],"sn":data['lastname'],"givenName":data['firstname'],"objectClass":"inetOrgPerson","description":data['description'],"mobile":'+'+data['mCode']+data['mobile'],"mail":data['mail'],"userPassword":data['password'],"uid":data['uid']}
+                
+
+
+                entry={"cn":data['fullname'],"sn":data['lastname'],"givenName":data['firstname'],"displayName":data['displayName'],"o":data['organization'],"objectClass":"inetOrgPerson","description":data['role'],"mobile":'+'+data['mCode']+data['mobile'],"mail":data['mail'],"userPassword":data['password'],"uid":data["empID"]}   
+                 
                 parsed_entry=[(i,bytes(j,encoding='utf-8'))for i,j in entry.items()]
                 con.add_s(dn,parsed_entry)
                 rValue = "Created user : " + data['fullname']
